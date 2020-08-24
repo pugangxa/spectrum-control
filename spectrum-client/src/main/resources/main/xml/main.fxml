@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gangs.spectrum.client.ui.controller.MainViewController">
+   <children>
+      <LineChart fx:id="pointYChart" layoutX="50.0" layoutY="77.0" prefHeight="266.0" prefWidth="500.0" title="Spectrum-Control">
+         <xAxis>
+            <NumberAxis side="BOTTOM" fx:id="xAxis" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis fx:id="yAxis" side="LEFT" upperBound="1.0" />
+         </yAxis>
+      </LineChart>
+      <HBox alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="600.0" spacing="15.0">
+         <children>
+            <Button fx:id="startButton" mnemonicParsing="false" onAction="#onStart" text="开始">
+               <HBox.margin>
+                  <Insets left="25.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="stopButton" mnemonicParsing="false" onAction="#onStop" text="停止" />
+            <Button fx:id="resetButton" mnemonicParsing="false" onAction="#onReset" text="重置" />
+            <Button fx:id="restartButton" mnemonicParsing="false" onAction="#onRestart" text="重启" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

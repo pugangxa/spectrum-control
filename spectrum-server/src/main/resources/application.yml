@@ -1,0 +1,12 @@
+server:
+  socketPort: 8000
+
+#logging logback
+logging:
+  config: classpath:logback-spring.xml
+  file: spectrum-server
+
+spring:
+  #runningtime environment
+  profiles:
+    active:  dev
