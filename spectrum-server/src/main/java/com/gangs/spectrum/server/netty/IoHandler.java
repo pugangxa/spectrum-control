@@ -49,7 +49,8 @@ public class IoHandler extends ChannelInboundHandlerAdapter {
 	
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		logger.error("业务流程出错", cause);
+		//logger.error("业务流程出错", cause);
+		logger.info("客户端断开连接");
 		//cause.printStackTrace();
 		Channel channel = ctx.channel();
 		if(cause instanceof IOException && channel.isActive()) {

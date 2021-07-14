@@ -11,6 +11,7 @@ import com.gangs.spectrum.client.ui.StageController;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Worker.State;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -48,50 +49,65 @@ public class MainViewController implements ControlledStage, Initializable{
 	
     @FXML
     void onStart(ActionEvent event) {
-    	System.out.println("Main view, start entered");
-    	clientScheduledService.setDelay(Duration.seconds(0));
-    	clientScheduledService.setPeriod(Duration.seconds(0.1));
-        //启动失败重新启动
-    	clientScheduledService.setRestartOnFailure(true);
-        //程序启动失败后重新启动次数
-    	clientScheduledService.setMaximumFailureCount(4);
-    	
-		LineChart.Series<Number, Number> pointYSeries = new LineChart.Series<Number, Number>();
-		pointYSeries.setName("Received Data");
-		pointYChartData.add(pointYSeries);
-        xAxis = new NumberAxis();
-        xAxis.setLabel("Time-Series");
-        yAxis = new NumberAxis();
-        yAxis.setLabel("Received-Data");
-        pointYChart.setData(pointYChartData);
-		pointYChart.setLegendSide(Side.TOP);
-		pointYChart.setCreateSymbols(false);
 
-		clientScheduledService.setChartData(pointYChartData);
-    	
-    	clientScheduledService.start();
+		System.out.println("Main view, start entered");
+		clientScheduledService.setDelay(Duration.seconds(0));
+		clientScheduledService.setPeriod(Duration.seconds(0.1));
+		// 启动失败重新启动
+		clientScheduledService.setRestartOnFailure(true);
+		// 程序启动失败后重新启动次数
+		clientScheduledService.setMaximumFailureCount(4);
+		if(pointYChart.getData().isEmpty()) {
+			LineChart.Series<Number, Number> pointYSeries = new LineChart.Series<Number, Number>();
+			pointYSeries.setName("Received Data");
+			pointYChartData.add(pointYSeries);
+			xAxis = new NumberAxis();
+			xAxis.setOpacity(100);
+			xAxis.setLabel("Time-Series");
+			yAxis = new NumberAxis();
+			yAxis.setOpacity(100);
+			yAxis.setLabel("Received-Data");
+			pointYChart.setData(pointYChartData);
+			pointYChart.setLegendSide(Side.TOP);
+			pointYChart.setCreateSymbols(false);
+			clientScheduledService.setChartData(pointYChartData);
+		}
+
+		
+		clientScheduledService.start();
+		
+		startButton.setDisable(true);
+		stopButton.setDisable(false);
+		resetButton.setDisable(true);
     }
 
     @FXML
     void onStop(ActionEvent event) {
     	System.out.println("Main view, stop entered");
     	clientScheduledService.cancel();
+    	stopButton.setDisable(true);
+    	resetButton.setDisable(false);
     }
     
-    @FXML
-    void onRestart(ActionEvent event) {
-    	System.out.println("Main view, restart entered");
-    	clientScheduledService.restart();
-		LineChart.Series<Number, Number> pointYSeries = new LineChart.Series<Number, Number>();
-		pointYSeries.setName("Received Data");
-		pointYChartData.add(pointYSeries);
-    }
+//    @FXML
+//    void onRestart(ActionEvent event) {
+//    	System.out.println("Main view, restart entered");
+//    	clientScheduledService.restart();
+//		LineChart.Series<Number, Number> pointYSeries = new LineChart.Series<Number, Number>();
+//		//pointYSeries.setName("Received Data");
+//		pointYChartData.add(pointYSeries);
+//    }
 
     @FXML
     void onReset(ActionEvent event) {
+    	if(clientScheduledService.isRunning()) {
+    		return;
+    	}
     	System.out.println("Main view, reset entered");
     	clientScheduledService.reset();
     	pointYChart.getData().clear();
+    	startButton.setDisable(false);
+    	resetButton.setDisable(true);
     }
 
 	@Override

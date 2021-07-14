@@ -20,6 +20,13 @@ public class CaculateSpectrumValue implements Runnable {
 		this.channel = channel;
 	}
 
+	//	在加载段ab内，a点的值小于b点值：
+	//A=(b-a)/2；ω=2π/T=2π/2T1=π/T1；θ=-π/2；C=(a+b)/2
+	//则正弦曲线加载满足条件为F=(b-a)/2  sin⁡〖（π/T1 t-π/2）+(a+b)/2〗
+	//	在加载段bc内，b点值大于c点值：
+	//A=(b-c)/2；ω=2π/T=2π/2T1=π/T1；θ=π/2；C=(b+c)/2
+	//则正弦曲线加载满足条件为F=(b-c)/2  sin⁡〖（π/T1 t+π/2）+(b+c)/2〗
+
 	private static double computeSpectrumPoint(long t, double a, double b, double c, double T) {
 
 		double A = 0d;

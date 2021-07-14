@@ -11,7 +11,7 @@ public class ClientPushCaculatedPoint extends PushCaculatedPoint {
 	
 	@Override
 	public void execPacket(IoSession session) {
-		System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date(System.currentTimeMillis())) + ": 收到服务端的计算值: " + getPointY());
+		//System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date(System.currentTimeMillis())) + ": 收到服务端的计算值: " + getPointY());
 		ClientScheduledService.setCurrentPointY(getPointY());
 	}
 }

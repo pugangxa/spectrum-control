@@ -25,7 +25,6 @@
             </Button>
             <Button fx:id="stopButton" mnemonicParsing="false" onAction="#onStop" text="停止" />
             <Button fx:id="resetButton" mnemonicParsing="false" onAction="#onReset" text="重置" />
-            <Button fx:id="restartButton" mnemonicParsing="false" onAction="#onRestart" text="重启" />
          </children>
       </HBox>
    </children>
